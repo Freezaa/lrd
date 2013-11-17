@@ -22,7 +22,7 @@ void erode_picture(){
 int erode(int x, int y){
 	
 	bool elements[9];
-	int schwelle_ero = 6;
+	int schwelle_ero = 7;
 	int m = 0;
 	if (get_pixel_color(&a_pixel_color, x, y)){
 		elements[0] = get_pixel_color(&a_pixel_color, x - 1, y - 1);
@@ -54,7 +54,7 @@ int erode(int x, int y){
 
 void color_pixel_black(int x, int y){
 	
-	int offset = ((y * 3) + 1) + (x * 1023 * 3);
+	int offset = (y * 3) + (x * 1023 * 3);
 	myoutpic.seekp(offset + start, ios::beg);
 	myoutpic.put(black);
 	myoutpic.put(black);
@@ -63,7 +63,7 @@ void color_pixel_black(int x, int y){
 
 void color_pixel_white(int x, int y){
 	
-	int offset = ((y * 3) + 1) + (x * 1023 * 3);
+	int offset = (y * 3)  + (x * 1023 * 3);
 	myoutpic.seekp(offset + start, ios::beg);
 	myoutpic.put(white);
 	myoutpic.put(white);
@@ -73,7 +73,7 @@ void color_pixel_white(int x, int y){
 int get_pixel_color(struct pixel_color* pixel_rgb, int x, int y){
 	
 	mypic.open("ErdeOut.bmp");
-	int offset = ((y * 3)+1) + (x * 1023 * 3);
+	int offset = (y * 3) + (x * 1023 * 3);
 	mypic.seekg(offset+start, ios::beg);
 	pixel_rgb->b = mypic.get();
 	pixel_rgb->g = mypic.get();
