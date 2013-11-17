@@ -27,8 +27,8 @@ struct pixel_color{
 
 void erode_picture();
 int erode(int x, int y);
-void color_pixel_black();
-void color_pixel_white();
+void color_pixel_black(int x, int y);
+void color_pixel_white(int x, int y);
 int get_pixel_color(struct pixel_color* pixel_rgb, int x, int y);
 int size();
 int filter();

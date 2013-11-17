@@ -5,7 +5,8 @@
 #include "lrd_2.h"
 
 void erode_picture(){
-	
+	myoutpic.open("ErdeOutEro.bmp");
+	mypic.open("ErdeOut.bmp");
 	for (int v = 0; v <= start; v++){
 		myoutpic.put(mypic.get());
 	}
@@ -14,6 +15,8 @@ void erode_picture(){
 			erode(a, b);
 		}
 	}
+	myoutpic.close();
+	mypic.close();
 }
 
 int erode(int x, int y){
@@ -38,24 +41,30 @@ int erode(int x, int y){
 		}
 
 		if (m >= schwelle_ero){
-			color_pixel_white();
+			color_pixel_white(x, y);
 		}
 		else{
-			color_pixel_black();
+			color_pixel_black(x, y);
 		}
 	}
 	else {
-		color_pixel_black();	
+		color_pixel_black(x, y);	
 	}
 }
 
-void color_pixel_black(){
+void color_pixel_black(int x, int y){
+	
+	int offset = ((y * 3) + 1) + (x * 1023 * 3);
+	myoutpic.seekp(offset + start, ios::beg);
 	myoutpic.put(black);
 	myoutpic.put(black);
 	myoutpic.put(black);
 }
 
-void color_pixel_white(){
+void color_pixel_white(int x, int y){
+	
+	int offset = ((y * 3) + 1) + (x * 1023 * 3);
+	myoutpic.seekp(offset + start, ios::beg);
 	myoutpic.put(white);
 	myoutpic.put(white);
 	myoutpic.put(white);
@@ -65,7 +74,7 @@ int get_pixel_color(struct pixel_color* pixel_rgb, int x, int y){
 	
 	mypic.open("ErdeOut.bmp");
 	int offset = ((y * 3)+1) + (x * 1023 * 3);
-	mypic.seekg(offset, ios::beg);
+	mypic.seekg(offset+start, ios::beg);
 	pixel_rgb->b = mypic.get();
 	pixel_rgb->g = mypic.get();
 	pixel_rgb->r = mypic.get();
@@ -192,10 +201,9 @@ int main() {
 	//filter();
 	filter_struct();
 	//get_pixel_color(&a_pixel_color, 500, 500);
-	myoutpic.open("ErdeOutEro.bmp");
-	mypic.open("ErdeOut.bmp");
+	
+	
 	erode_picture();
-	mypic.close();
-	myoutpic.close();
+
 	return 0;
 }
