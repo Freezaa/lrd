@@ -4,19 +4,19 @@
 
 #include "lrd_2.h"
 
-void erodate_picture(){
+void erode_picture(){
 	
 	for (int v = 0; v <= start; v++){
 		myoutpic.put(mypic.get());
 	}
 	for (int a = 0; a <= 1024; a++){
 		for (int b = 0; b <= 1024; b++){
-			erodate(a, b);
+			erode(a, b);
 		}
 	}
 }
 
-int erodate(int x, int y){
+int erode(int x, int y){
 	
 	bool elements[9];
 	int schwelle_ero = 6;
@@ -64,8 +64,8 @@ void color_pixel_white(){
 int get_pixel_color(struct pixel_color* pixel_rgb, int x, int y){
 	
 	mypic.open("ErdeOut.bmp");
-	int offset = (y * 3) + (x * 1023 * 3);
-	mypic.seekg(start+offset, ios::beg);
+	int offset = ((y * 3)+1) + (x * 1023 * 3);
+	mypic.seekg(offset, ios::beg);
 	pixel_rgb->b = mypic.get();
 	pixel_rgb->g = mypic.get();
 	pixel_rgb->r = mypic.get();
@@ -194,7 +194,7 @@ int main() {
 	//get_pixel_color(&a_pixel_color, 500, 500);
 	myoutpic.open("ErdeOutEro.bmp");
 	mypic.open("ErdeOut.bmp");
-	erodate_picture();
+	erode_picture();
 	mypic.close();
 	myoutpic.close();
 	return 0;

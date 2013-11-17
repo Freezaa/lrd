@@ -25,8 +25,8 @@ struct pixel_color{
 	char b;
 } a_pixel_color, treshold_ref;
 
-void erodate_picture();
-int erodate(int x, int y);
+void erode_picture();
+int erode(int x, int y);
 void color_pixel_black();
 void color_pixel_white();
 int get_pixel_color(struct pixel_color* pixel_rgb, int x, int y);
